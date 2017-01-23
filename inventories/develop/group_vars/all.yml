@@ -1,0 +1,19 @@
+---
+
+remote_user: ubuntu
+action_user: kijiji-apac
+action_user_pw: Ihate1soda!
+ansible_ssh_private_key_file: ~/.ssh/ecg-qa.pem
+
+#required for role under-proxy
+proxy: http://proxy.ams1.cloud.ecg.so:3128 
+apt_proxy_file: /etc/apt/apt.conf.d/proxy
+
+#required for roles, redis-master and redis-slaves
+redis:
+  requirepass: 4uCfrmp3VjVp685WCaT3We3KxbRGyLZt
+  masterauth: 4uCfrmp3VjVp685WCaT3We3KxbRGyLZt
+  port: 6379
+
+#required for roles mongo-primary and mongo-secondary
+replica-set-name: rs0

@@ -1,0 +1,41 @@
+---
+
+- hosts: all 
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  roles:
+  - common
+  - under-proxy
+  - docker
+
+
+- hosts: redis-master 
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  roles:
+  - redis-master
+
+- hosts: redis-slaves
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  roles:
+  - redis-slaves
+
+- hosts: mongo-primary
+  remote_user: ubuntu
+  become: yes
+  become_method: sudo
+  roles:
+  - mongo
+
+# hosts: mongo-secondary
+# remote_user: ubuntu
+# roles:
+# - common
+# - under-proxy
+# - mongo
+# - mongo-secondary
+

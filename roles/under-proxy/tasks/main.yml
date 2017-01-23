@@ -1,0 +1,30 @@
+---
+
+- name: setup apt-get proxy
+  file: path="{{apt_proxy_file}}" state=touch
+
+- lineinfile: dest="{{apt_proxy_file}}" line="{{item}}"
+  with_items:
+  - 'Acquire::http::Proxy "{{proxy}}";'
+  - 'Acquire::https::Proxy "{{proxy}}";'
+  - 'Acquire::http::Proxy::repositories.ams1.cloud.ecg.so "DIRECT";'
+
+- name: touch ~/.wgetrc and setup wget proxy
+  file: path="~/.wgetrc" state=touch
+
+- lineinfile: dest="~/.wgetrc" line="{{item}}"
+  with_items:
+  - "use_proxy=yes"
+  - "http_proxy={{proxy}}"
+  - "https_proxy={{proxy}}"
+
+- name: touch ~/.wgetrc and setup wget proxy
+  file: path="~/.wgetrc" state=touch
+  become_user: "{{remote_user}}"
+
+- lineinfile: dest="~/.wgetrc" line="{{item}}"
+  with_items:
+  - "use_proxy=yes"
+  - "http_proxy={{proxy}}"
+  - "https_proxy={{proxy}}"
+  become_user: "{{remote_user}}"

@@ -1,0 +1,14 @@
+---
+
+- name: copy configuration file
+  copy: src=templates/mongod.conf dest=/etc/mongod.conf mode=0644
+
+- name: create directory for data
+  file: path=~/data state=directory
+
+- name: create directory for data
+  file: path=~/logs state=directory
+
+- name: run mongo with docker
+  shell: docker run -p 27017:27017 -v ~/data:/data/db --name mongo -d mongo mongod --replSet {{replica-set-name}}
+

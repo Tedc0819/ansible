@@ -1,0 +1,7 @@
+---
+
+- name: create directory for data
+  file: path=~/data state=directory
+
+- name: run redis slaves with docker
+  shell: docker run -d -p {{redis.port}}:6379 -v ~/data:/data --name redis redis redis-server --requirepass {{redis.requirepass}} --masterauth {{redis.masterauth}} --slaveof {{ hostvars[groups['redis-master'][0]]['ansible_eth0']['ipv4']['address'] }} {{redis.port}} 
